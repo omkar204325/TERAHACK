@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TERAHACK</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: black;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #intro {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .letter {
+      font-size: 5vw;
+      color: transparent;
+      transition: color 0.3s ease-in-out;
+      font-weight: bold;
+    }
+
+    .letter.reveal {
+      color: #b30000; /* Red Netflix style */
+    }
+
+    #burn-effect {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background: url('https://i.ibb.co/dpKdfhR/ember-bg.jpg') center/cover no-repeat;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 2;
+    }
+
+    #platinum-chain {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+      z-index: 3;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    #boxes-section {
+      display: none;
+      background: black;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .box {
+      display: inline-block;
+      width: 280px;
+      height: 150px;
+      background: #1c1c1c;
+      border: 2px solid #aa0000;
+      border-radius: 12px;
+      margin: 10px;
+      padding: 15px;
+      color: white;
+      font-size: 1rem;
+      box-shadow: 0 0 12px red;
+    }
+
+    #premium-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #ff0000;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <div id="terahack-word">
+      <span class="letter" id="t">T</span>
+      <span class="letter" id="e">E</span>
+      <span class="letter" id="r">R</span>
+      <span class="letter" id="a">A</span>
+      <span class="letter" id="h">H</span>
+      <span class="letter" id="a2">A</span>
+      <span class="letter" id="c">C</span>
+      <span class="letter" id="k">K</span>
+    </div>
+    <div id="burn-effect"></div>
+    <img id="platinum-chain" src="https://i.ibb.co/3CykNmH/terahack-platinum.png" alt="TERAHACK Chain" />
+  </div>
+
+  <div id="boxes-section">
+    <h2>Paste Your Terabox Link</h2>
+    <div class="box">Link Paste Box 1</div>
+    <div class="box">(Locked)</div>
+    <div class="box">(Locked)</div>
+    <br />
+    <button id="premium-button">Unlock Premium ₹49</button>
+  </div>
+
+  <script>
+    const letters = document.querySelectorAll('.letter');
+    let i = 0;
+
+    function revealNextLetter() {
+      if (i < letters.length) {
+        letters[i].classList.add('reveal');
+        i++;
+        setTimeout(revealNextLetter, 300);
+      } else {
+        setTimeout(() => {
+          document.getElementById('burn-effect').style.opacity = 1;
+        }, 800);
+
+        setTimeout(() => {
+          document.getElementById('platinum-chain').style.opacity = 1;
+        }, 1800);
+
+        setTimeout(() => {
+          document.getElementById('intro').style.display = 'none';
+          document.getElementById('boxes-section').style.display = 'block';
+        }, 3500);
+      }
+    }
+
+    // Simulate eagle moving with de lay to match letter reveal
+    setTimeout(revealNextLetter, 1500);
+  </script>
+</body>
+</html>
