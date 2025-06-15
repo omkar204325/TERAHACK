@@ -1,147 +1,150 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TERAHACK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TERAHACK Intro</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
       background: black;
       overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Orbitron', sans-serif;
     }
-
-    #intro {
+    .container {
       position: relative;
-      width: 100vw;
-      height: 100vh;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 100%;
+      height: 100%;
     }
-
-    .letter {
-      font-size: 5vw;
-      color: transparent;
-      transition: color 0.3s ease-in-out;
-      font-weight: bold;
-    }
-
-    .letter.reveal {
-      color: #b30000; /* Red Netflix style */
-    }
-
-    #burn-effect {
+    .eagle {
       position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      background: url('https://i.ibb.co/dpKdfhR/ember-bg.jpg') center/cover no-repeat;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+      width: 180px;
+      top: 35%;
+      left: -200px;
       z-index: 2;
     }
-
-    #platinum-chain {
+    .text {
       position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.5);
-      opacity: 0;
-      z-index: 3;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    #boxes-section {
-      display: none;
-      background: black;
-      padding: 20px;
-      color: white;
+      width: 100%;
+      top: 60%;
       text-align: center;
+      font-size: 4em;
+      color: #aa0000;
+      letter-spacing: 15px;
+      text-shadow: 0 0 20px #ff0000;
+      z-index: 1;
     }
-
-    .box {
+    .letter {
       display: inline-block;
-      width: 280px;
-      height: 150px;
-      background: #1c1c1c;
-      border: 2px solid #aa0000;
-      border-radius: 12px;
-      margin: 10px;
-      padding: 15px;
-      color: white;
-      font-size: 1rem;
-      box-shadow: 0 0 12px red;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s ease-out;
     }
-
-    #premium-button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #ff0000;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff0000;
+    .glow {
+      color: #ff2d2d;
+      text-shadow: 0 0 5px red, 0 0 15px darkred, 0 0 30px red;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
-  <div id="intro">
-    <div id="terahack-word">
-      <span class="letter" id="t">T</span>
-      <span class="letter" id="e">E</span>
-      <span class="letter" id="r">R</span>
-      <span class="letter" id="a">A</span>
-      <span class="letter" id="h">H</span>
-      <span class="letter" id="a2">A</span>
-      <span class="letter" id="c">C</span>
-      <span class="letter" id="k">K</span>
-    </div>
-    <div id="burn-effect"></div>
-    <img id="platinum-chain" src="https://i.ibb.co/3CykNmH/terahack-platinum.png" alt="TERAHACK Chain" />
+<div class="container">
+  <canvas id="embers"></canvas>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bald_Eagle_Portrait.jpg/440px-Bald_Eagle_Portrait.jpg" class="eagle" id="eagle"/>
+  <div class="text" id="terahackText">
+    <span class="letter">T</span>
+    <span class="letter">E</span>
+    <span class="letter">R</span>
+    <span class="letter">A</span>
+    <span class="letter">H</span>
+    <span class="letter">A</span>
+    <span class="letter">C</span>
+    <span class="letter">K</span>
   </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  const eagle = document.getElementById("eagle");
+  const letters = document.querySelectorAll(".letter");
 
-  <div id="boxes-section">
-    <h2>Paste Your Terabox Link</h2>
-    <div class="box">Link Paste Box 1</div>
-    <div class="box">(Locked)</div>
-    <div class="box">(Locked)</div>
-    <br />
-    <button id="premium-button">Unlock Premium ₹49</button>
-  </div>
-
-  <script>
-    const letters = document.querySelectorAll('.letter');
-    let i = 0;
-
-    function revealNextLetter() {
-      if (i < letters.length) {
-        letters[i].classList.add('reveal');
-        i++;
-        setTimeout(revealNextLetter, 300);
-      } else {
-        setTimeout(() => {
-          document.getElementById('burn-effect').style.opacity = 1;
-        }, 800);
-
-        setTimeout(() => {
-          document.getElementById('platinum-chain').style.opacity = 1;
-        }, 1800);
-
-        setTimeout(() => {
-          document.getElementById('intro').style.display = 'none';
-          document.getElementById('boxes-section').style.display = 'block';
-        }, 3500);
+  // Eagle fly animation
+  gsap.to(eagle, {
+    duration: 6,
+    x: window.innerWidth + 200,
+    ease: "power1.inOut",
+    onUpdate: () => {
+      const progress = gsap.getProperty(eagle, "x") / window.innerWidth;
+      const index = Math.min(letters.length - 1, Math.floor(progress * letters.length));
+      if (letters[index] && letters[index].style.opacity === "0") {
+        letters[index].style.opacity = 1;
+        letters[index].style.transform = "scale(1)";
+        letters[index].classList.add("glow");
       }
+    },
+    onComplete: () => {
+      gsap.to("#terahackText", {scale: 1.05, repeat: -1, yoyo: true, duration: 1});
     }
+  });
 
-    // Simulate eagle moving with de lay to match letter reveal
-    setTimeout(revealNextLetter, 1500);
-  </script>
+  // Ember effect
+  const canvas = document.getElementById("embers");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  let particles = [];
+
+  function Particle() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height + Math.random() * 100;
+    this.speed = 0.5 + Math.random() * 1;
+    this.radius = Math.random() * 2;
+    this.alpha = Math.random();
+  }
+
+  Particle.prototype.draw = function() {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255,50,50,${this.alpha})`;
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
+  };
+
+  Particle.prototype.update = function() {
+    this.y -= this.speed;
+    this.alpha -= 0.005;
+    if (this.alpha <= 0) {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + Math.random() * 100;
+      this.alpha = Math.random();
+    }
+  };
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  for (let i = 0; i < 150; i++) {
+    particles.push(new Particle());
+  }
+
+  animateParticles();
+</script>
 </body>
 </html>
