@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>[TERAHACK_CORE] BETA_x7 // SYSTEM_GLITCH</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC0gH0h4n-lvLalF7xrkfJm3Y5xlj9ZtbM",
+      authDomain: "tarahack-2881c.firebaseapp.com",
+      databaseURL: "https://tarahack-2881c-default-rtdb.firebaseio.com",
+      projectId: "tarahack-2881c",
+      storageBucket: "tarahack-2881c.appspot.com",
+      messagingSenderId: "706034185207",
+      appId: "1:706034185207:web:94f702979b4560cbf5734f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    window.saveLink = (event) => {
+      if (event.key === "Enter") {
+        const link = event.target.value.trim();
+        if (link !== "") {
+          push(ref(database, "freeBoxLinks"), {
+            link: link,
+            timestamp: Date.now()
+          }).then(() => {
+            event.target.value = "⏳ decoding stream...";
+            setTimeout(() => {
+              event.target.value = "";
+              alert("✅ Link submitted!");
+            }, 2000);
+          }).catch((err) => {
+            console.error(err);
+            alert("❌ Firebase error");
+          });
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: red;
+      margin-bottom: 30px;
+      font-size: 22px;
+      text-shadow: 0 0 10px red;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .box {
+      width: 130px;
+      height: 160px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      font-size: 13px;
+      padding: 10px;
+      box-shadow: 0 0 5px rgba(255,255,255,0.1);
+    }
+
+    .box.free {
+      border: 2px solid lime;
+      box-shadow: 0 0 6px lime;
+    }
+
+    .box.locked {
+      border: 2px solid red;
+      opacity: 0.5;
+    }
+
+    .box.locked::after {
+      content: '🔒 LOCKED';
+      font-size: 11px;
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      color: red;
+    }
+
+    .input-box {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .input-box input {
+      background: black;
+      border: 1px dashed lime;
+      color: lime;
+      padding: 8px;
+      border-radius: 6px;
+      width: 280px;
+      font-family: monospace;
+    }
+
+    .input-box input::placeholder {
+      color: #aaa;
+    }
+
+    .plans {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .plan {
+      background: linear-gradient(135deg,#ff7e5f,#feb47b,#86a8e7);
+      padding: 10px 18px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      animation: glow 5s ease infinite;
+    }
+
+    @keyframes glow {
+      0% { filter: brightness(1); }
+      50% { filter: brightness(1.4); }
+      100% { filter: brightness(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>[ TERAHACK SYSTEM PANEL - BETA x7 ]</h1>
+
+  <div class="container">
+    <div class="box free">
+      <strong>FREE MODE</strong><br>
+      TEMP ACCESS<br><br>
+      <span style="font-size:11px;">Active</span>
+    </div>
+    <div class="box locked">
+      <strong>LEVEL 2</strong><br>
+      Upgrade<br>Required
+    </div>
+    <div class="box locked">
+      <strong>LEVEL 3</strong><br>
+      Upgrade<br>Required
+    </div>
+    <div class="box locked">
+      <strong>LEVEL 4</strong><br>
+      Upgrade<br>Required
+    </div>
+  </div>
+
+  <div class="input-box">
+    <input type="text" placeholder="Paste your Terabox link here" onkeydown="saveLink(event)">
+  </div>
+
+  <div class="plans">
+    <div class="plan">₹19 / MINI ACCESS</div>
+    <div class="plan">₹49 / FULL PREMIUM</div>
+  </div>
+
+</body>
+</html>
